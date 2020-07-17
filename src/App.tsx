@@ -1,26 +1,47 @@
-import React from 'react';
+import React, { useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import { AddTask } from "./components/addTask"
+import TextField from "@material-ui/core/TextField"
 
-function App() {
+
+const printTask = (text : string) => {
+  return (
+    <h1>
+      {text}
+    </h1>
+  )
+}
+interface SomeData {
+  data: string
+}
+
+export const App = () => {
+  const [data, setData] = useState<SomeData>({data: ""}) 
+  let text : string
+
+  const handleChange = (event : any) => {
+    setData({...data, [event.name]: event.value})
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <br />
+      <TextField 
+        name="Task"
+        id="ToDoItem" 
+        label="To Do Task Text" 
+        variant="outlined"
+        multiline={true}
+        className="toDoText"
+        style=  {{   
+                width: "500px",
+                }}
+        onChange={handleChange}
+      />
+      {data}
+      
+      
     </div>
   );
 }
-
-export default App;
