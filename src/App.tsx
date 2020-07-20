@@ -3,25 +3,25 @@ import logo from './logo.svg';
 import './App.css';
 import { AddTask } from "./components/addTask"
 import TextField from "@material-ui/core/TextField"
+import Button from "@material-ui/core/Button"
 
-
-const printTask = (text : string) => {
-  return (
-    <h1>
-      {text}
-    </h1>
-  )
-}
 interface SomeData {
   data: string
 }
 
-export const App = () => {
-  const [data, setData] = useState<SomeData>({data: ""}) 
+export const App: React.FC = () => {
+  const [data, setData] = useState<{text: string}>({text: ""});
+  const [openSpan, setOpenSpan] = useState<boolean>(false); 
   let text : string
 
   const handleChange = (event : any) => {
-    setData({...data, [event.name]: event.value})
+    setOpenSpan(false);
+    const {name, value} = event.target;   //destruction
+    setData({...data, [name]: value})
+  }
+
+  const handleAdd = () => {
+    data ? setOpenSpan(true) : setOpenSpan(false)
   }
 
   return (
@@ -39,8 +39,15 @@ export const App = () => {
                 }}
         onChange={handleChange}
       />
-      {data}
-      
+      <Button 
+        variant="contained"
+        color="primary"
+        disableElevation
+        onClick={handleAdd}>
+          Add
+      </Button>
+      <br />
+      {openSpan ? <span>{data.text}</span> : ""}
       
     </div>
   );
