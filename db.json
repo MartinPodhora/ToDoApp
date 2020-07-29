@@ -2,11 +2,13 @@
     "tasks": [
         {
             "id": 1,
-            "task": "make task"
+            "task": "make task",
+            "done": false
         },
         {
             "id": 2,
-            "task": "make another task"
+            "task": "make another task",
+            "done": false
         }
     ]
     
